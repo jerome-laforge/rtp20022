@@ -1,11 +1,11 @@
 package rtp
 
-import "fmt"
+import "strconv"
 
 type Amount float64
 
 func (a Amount) MarshalText() ([]byte, error) {
-	return []byte(fmt.Sprintf("%.2f", a)), nil
+	return []byte(strconv.FormatFloat(float64(a), 'f', -1, 64)), nil
 }
 
 func (a Amount) Validate() error {
