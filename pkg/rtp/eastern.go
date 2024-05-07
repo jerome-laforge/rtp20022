@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"sync"
 	"time"
+	_ "time/tzdata"
 )
 
 var (
