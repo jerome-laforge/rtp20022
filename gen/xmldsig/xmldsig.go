@@ -323,7 +323,8 @@ type ObjectType struct {
 
 type ObjectTypeItem struct {
 	XMLName xml.Name
-	Content []byte `xml:",innerxml"`
+	Xmlns   []xml.Attr `xml:",attr"`
+	Content []byte     `xml:",innerxml"`
 }
 
 type ManifestType struct {
