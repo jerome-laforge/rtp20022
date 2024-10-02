@@ -315,16 +315,10 @@ func (v SPKIDataType) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 }
 
 type ObjectType struct {
-	Id       *string        `xml:"Id,attr,omitempty"`
-	MimeType *string        `xml:"MimeType,attr,omitempty"`
-	Encoding *string        `xml:"Encoding,attr,omitempty"`
-	Item     ObjectTypeItem `xml:",any"`
-}
-
-type ObjectTypeItem struct {
-	XMLName xml.Name
-	Xmlns   []xml.Attr `xml:",attr"`
-	Content []byte     `xml:",innerxml"`
+	Id       *string `xml:"Id,attr,omitempty"`
+	MimeType *string `xml:"MimeType,attr,omitempty"`
+	Encoding *string `xml:"Encoding,attr,omitempty"`
+	Item     any     `xml:",any"`
 }
 
 type ManifestType struct {
