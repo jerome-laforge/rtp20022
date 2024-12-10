@@ -8,6 +8,8 @@ import (
 
 type ISODate civil.Date
 
+const ISODateFormatStrictRFC3339 = ""
+
 var ISODateFormat = "2006-01-02T15:04:05"
 
 func UnmarshalISODate(text string) ISODate {
@@ -93,9 +95,16 @@ func _marshalTime(t time.Time, format string) ([]byte, error) {
 type xsdDateTime time.Time
 
 func (t *xsdDateTime) UnmarshalText(text []byte) error {
+	if ISODateFormat == ISODateFormatStrictRFC3339 {
+		return (*time.Time)(t).UnmarshalText(text)
+	}
+
 	return _unmarshalTime(text, (*time.Time)(t), ISODateFormat)
 }
 
 func (t xsdDateTime) MarshalText() ([]byte, error) {
+	if ISODateFormat == ISODateFormatStrictRFC3339 {
+		return time.Time(t).MarshalText()
+	}
 	return _marshalTime((time.Time)(t), ISODateFormat)
 }

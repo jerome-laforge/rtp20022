@@ -53,3 +53,18 @@ func TestISODateTimeFormat(t *testing.T) {
 	require.NoError(t, err)
 	require.True(t, when.Equal(time.Time(read)))
 }
+
+func TestISODateTimeStrictRFC3339(t *testing.T) {
+	save := rtp.ISODateFormat
+	defer func() {
+		rtp.ISODateFormat = save
+	}()
+	rtp.ISODateFormat = rtp.ISODateFormatStrictRFC3339
+
+	loc, _ := time.LoadLocation("America/New_York")
+	when := time.Date(2019, time.March, 21, 10, 36, 19, 500_000_000, loc)
+
+	out, err := xml.Marshal(rtp.ISODateTime(when))
+	require.NoError(t, err)
+	require.Equal(t, "<ISODateTime>2019-03-21T10:36:19.5-04:00</ISODateTime>", string(out))
+}
